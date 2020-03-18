@@ -3,63 +3,69 @@ package it.polito.tdp.libretto.model;
 import java.time.LocalDate;
 
 /**
- * Classe Voto, contiene le informazioni su un esame
- * superato.
- * 
- * @author Fulvio
+ * Classe Voto, contiene le info su un esame superato
+ * @author HP
  *
  */
 public class Voto {
+
+	private String nomeCorso; 
+	private int voto; 
+	private LocalDate data; // classe Date e' predefinita in java.util ma ha molti problemi
+	                        // preferito LocalDate di java.time disponibile dalla versione java7 in avanti
 	
-	private String corso ; // "Tecniche di Programmazione"
-	private int voto ; // 28
-	private LocalDate data ; // 15/06/2020
 	
 	/**
-	 * Costruisce un nuovo Voto.
-	 * 
-	 * @param corso nome del corso superato
-	 * @param voto valore del voto acquisito
-	 * @param data data di superamento dell'esame
+	 * Costruisco un nuovo voto
+	 * @param nomeCorso nome del corso superato
+	 * @param voto      valore del voto acquisito
+	 * @param data      data di superamento dell'esame 
 	 */
-	public Voto(String corso, int voto, LocalDate data) {
+	public Voto(String nomeCorso, int voto, LocalDate data) {
 		super();
-		this.corso = corso;
+		this.nomeCorso = nomeCorso;
 		this.voto = voto;
 		this.data = data;
 	}
 
-	public String getCorso() {
-		return corso;
+
+	public String getNomeCorso() {
+		return nomeCorso;
 	}
 
-	public void setCorso(String corso) {
-		this.corso = corso;
+
+	public void setNomeCorso(String nomeCorso) {
+		this.nomeCorso = nomeCorso;
 	}
+
 
 	public int getVoto() {
 		return voto;
 	}
 
+
 	public void setVoto(int voto) {
 		this.voto = voto;
 	}
+
 
 	public LocalDate getData() {
 		return data;
 	}
 
+
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
+
 	@Override
 	public String toString() {
-		return corso + ": " + voto + " (" + data + ")";
+		//return "Voto [nomeCorso=" + nomeCorso + ", voto=" + voto + ", data=" + data + "]";
+		return nomeCorso + " " + voto + " (" + data + ")";
 	}
 	
 	
 	
 	
-
 }
