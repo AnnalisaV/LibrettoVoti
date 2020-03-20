@@ -26,9 +26,22 @@ public class Libretto {
 	/**
 	 * Aggiunge un nuovo voto al libretto
 	 * @param v voto da aggiungere
+	 * @return {@code true} se ha inserito con successo il voto 
+	 *         {@code false} se non ha inserito perche' il voto era in conflitto o duplicato
 	 */
-	public void add(Voto v) {
+	public boolean add(Voto v) {
+		if (this.isConflitto(v) || this.isDuplicato(v)) {
+			// non inserire il voto
+			// scatenare un'eccezione ma a quel punto sarebbe responsabilita' del 
+			// chiamante evrificare che il voto sia corretto altrimenti si blocca il programma
+			//oppure segnalo con un valore particolare (cambio da void a boolean il ritorno del metodo)
+		return false; // non ha avuto successo 
+		}
+		else {
+			// inserire il voto in quanto non in conflitto ne' duplicato
 		this.voti.add(v); 
+		return true; 
+		}
 		
 	}
 	
@@ -87,5 +100,76 @@ public class Libretto {
 			}
 		}
 		return nuovo; 
+	}
+
+	/** 
+	 * Dato il nome di un corso, ricerca se quell'esame esiste nel libretto, 
+	 * in caso affermativo restituisce l'oggetto {@link Voto} corrispondente.
+	 * Se il corso non esiste -> (arbitrario) eccezione/ null.
+	 * @param nomeCorso nome esame da cercare
+	 * @return il {@link Voto} corrispondente, oppure {@code null} se non esiste
+	 */
+	public Voto cercaNomeCorso(String nomeCorso) {
+		//Voto result= null; 
+		/*for (Voto v : this.voti) {
+			if(v.getNomeCorso().compareTo(nomeCorso)==0) { //nomeCorso.equals(v.getCorso())
+				return v; 
+			}
+		}
+		return null;
+		*/ // va bene ma esiste un'implementazione migliore
+		
+		int pos= this.voti.indexOf(new Voto(nomeCorso, 0, null)); // questo voto creato non
+		                                                          // sara' inserito nella 
+		                                                         // lista ma usato per 
+		                                                        // confronto con il vero voto 
+		                                                      //presente in lista sulla base dell'equals
+	
+		// ottenuta la posizione del Voto con quelle caratteristiche 
+		if (pos !=-1) {
+			return this.voti.get(pos); 
+		}
+		else return null; 
+	
+	} 
+	/**
+	 * Ritorna {@code true} se il corso specificato da {@code v}
+	 * esiste nel libretto con la stessa valutazione.
+	 * Se non esiste, o la valutazione e' diversa, ritorna {@code false}. 
+	 * 
+	 * @param v il {@link Voto} da ricercare 
+	 * @return l'esistenza di un duplicato
+	 */
+	public boolean isDuplicato(Voto v) {
+		Voto esiste= this.cercaNomeCorso(v.getNomeCorso());
+		
+		if (esiste ==null) 
+			// non esiste quindi sicuramente non e' duplicato
+			return false; 
+		
+		//esiste allora vado a vedere che voto ha 
+		
+		/*if (esiste.getVoto()==v.getVoto())
+			return true; 
+		else return false; */
+		
+		return (esiste.getVoto()== v.getVoto()); 
+		
+	}
+	
+	/**
+	 * Determina se esiste un voto con lo stesso nome corso ma valutazione
+	 * diversa. 
+	 * @param v
+	 * @return
+	 */
+	public boolean isConflitto(Voto v) {
+		
+		Voto esiste= this.cercaNomeCorso(v.getNomeCorso()); 
+		if(esiste==null)
+			return false; 
+		
+		return (esiste.getVoto() != v.getVoto());
+		
 	}
 }
