@@ -172,4 +172,33 @@ public class Libretto {
 		return (esiste.getVoto() != v.getVoto());
 		
 	}
+	
+	/**
+	 * Restituisce un NUOVO Libretto, migliorando i voti di quello attuale 
+	 * @return il nuovo libretto migliorato
+	 */
+	public Libretto creaLibrettoMigliorato() {
+		
+		Libretto nuovo= new Libretto(); 
+		for(Voto v : this.voti) {
+			// Così sto solo 'copiando' ma e' sempre lui con un nome diverso
+			//Voto nv= v; // voto nuovo da migliorare, copiato prima da quello del lib oroginale
+			
+			// per farne uno uguale ma nuovo (richiamando il copyConstructor)
+			//Voto nv= new Voto(v); //new Voto(v.getCorso(), v.get...) ok ma scomodo 
+			// same
+			 Voto nv= v.clone(); 
+			
+			if (nv.getVoto() >= 24) {
+				nv.setVoto(nv.getVoto()+2);
+				if (nv.getVoto() >30) // attenzione a non superare il 30
+					nv.setVoto(30);
+			}
+			else if(nv.getVoto() >=18) {
+				nv.setVoto(nv.getVoto()+1);
+			}
+			nuovo.add(nv); 
+		}
+		return nuovo; 
+	}
 }

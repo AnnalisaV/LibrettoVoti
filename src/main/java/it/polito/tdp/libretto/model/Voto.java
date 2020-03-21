@@ -93,10 +93,26 @@ public class Voto {
 	}
 
 
+	/**
+	 * copy Constructor di {@Voto} : crea un nuovo {@Voto}, copiando 
+	 * il contenuto dle parametro {@code Voto}.  
+	 * @param v v il voto da copiare
+	 */
+	public Voto (Voto v) {
+		this.nomeCorso=/*new String(*/v.nomeCorso/*)*/; //v.getCorso() ma Java semplifica essendo oggetti dello stesso tipo
+		this.data= v.data; 
+		this.voto= v.voto; 
+		
+	}
 	
-
-
-	
+	/**
+	 * Crea una copia clone dell'oggetto presente (this), come NUOVO oggetto
+	 */
+	public Voto clone() {
+		Voto v= new Voto(this.nomeCorso, this.voto, this.data); 
+		return v; 
+		// anche potevo fare new Voto(this); richiamando il copyConstructor
+	}
 	
 	
 	

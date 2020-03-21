@@ -47,6 +47,11 @@ public class TestLibretto {
 		System.out.println("Economia con 21 e' duplicato: "+lib.isDuplicato(economia3)+
 				"/ conflitto: "+lib.isConflitto(economia3)+"\n"); 
 		
+		//punto7. Migliora il libretto 
+		Libretto migliorato= lib.creaLibrettoMigliorato(); 
+		System.out.println("Miglioramento del libretto\n"); 
+		System.out.println(lib); //prima
+		System.out.println(migliorato); //dopo 
 		
 	}
 	
