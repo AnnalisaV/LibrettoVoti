@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * @author HP
  *
  */
-public class Voto {
+public class Voto  implements Comparable<Voto>{
 
 	private String nomeCorso; 
 	private int voto; 
@@ -112,6 +112,21 @@ public class Voto {
 		Voto v= new Voto(this.nomeCorso, this.voto, this.data); 
 		return v; 
 		// anche potevo fare new Voto(this); richiamando il copyConstructor
+	}
+
+
+	//ordinamento naturale per nomeCorso alfabetico
+	// IO devo garantire che ci sia coerenza tra compareTo ed equals ovvero
+	//fatti sullo stesso attributo, se l'ordinamento e' basato su attributo diverso da
+	// quello che determina l'equals allora 'e meglio definirlo tramite Comparator esterno
+	@Override
+	public int compareTo(Voto other) {
+		// <0 se this<other
+		// =0 se this=other
+		//>0 se this>other 
+		
+		return this.nomeCorso.compareTo(other.nomeCorso); 
+		
 	}
 	
 	

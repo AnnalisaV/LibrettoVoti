@@ -1,6 +1,7 @@
 package it.polito.tdp.libretto.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,27 @@ public class Libretto {
 		                               // da controllare, un errore in meno ecc
 	} 
 */
+	// costruttore base da me definito
+	/**
+	 * Crea libretto nuovo e vuoto
+	 */
+	public Libretto() {
+		super(); 
+	}
+	
+	// mettendo questo, quello di default si elimina quindi devo provvedere a definire 
+	// un costruttore base
+	/**
+	 * CopyConstructor ("shallow" -> copia superficiale, copia l'oggetto corrente ma 
+	 * non quel che e' contenuto in esso che rimane condiviso in quanto non lo devo modificare)
+	 * [esiste anche la versione "deep" che fa copia profonda ovvero clona tutto, in
+	 * questo caso con un ciclo for per scandire e clonare ogni singolo voto]
+	 * @param libretto da copiare
+	 */
+	public Libretto(Libretto l) {
+		super(); 
+		this.voti.addAll(l.voti); 
+	}
 	
 	/**
 	 * Aggiunge un nuovo voto al libretto
@@ -200,5 +222,44 @@ public class Libretto {
 			nuovo.add(nv); 
 		}
 		return nuovo; 
+	}
+	
+	/**
+	 * Riordina i voti presenti nel libretto corrente alfabeticamente per corso
+	 */
+	public void ordinaPerCorso() {
+		Collections.sort(this.voti);
+	}
+	
+	public void ordinaPerVoto() {
+		Collections.sort(this.voti, new ComparatoreVotoPerValutazione());
+		//anche this.voti.sort(new ComparatoreVotoPerValutazione()); 
+	}
+	/**
+	 * Elimina dai libretto tutti i voti minori di 24
+	 */
+	public void cancellaVotiScarsi() {
+		//NON POSSO MODIFICARE MENTRE ITERO
+		/*for (Voto v : this.voti) {
+			if (v.getVoto()<24) {
+				this.voti.remove(v); 
+			}
+		}*/
+		List<Voto> daRimuovere= new ArrayList<>();
+		for (Voto v : this.voti) {
+			if (v.getVoto()<24) {
+				daRimuovere.add(v); 
+			}
+		}
+		
+		//itero sulla lista da rimuovere che e' diverso perche' rimuovo su un'altra 
+		// su cui non sto iterando 
+		/*for(Voto v : daRimuovere) {
+			this.voti.remove(v); 
+		}*/
+		// Esiste anche un modo migliore
+		this.voti.removeAll(daRimuovere); // operazione insiemistica che pensa lei all'iterazione su daRimuovere
+		
+		
 	}
 }

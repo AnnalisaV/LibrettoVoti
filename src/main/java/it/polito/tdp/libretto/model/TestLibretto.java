@@ -53,6 +53,22 @@ public class TestLibretto {
 		System.out.println(lib); //prima
 		System.out.println(migliorato); //dopo 
 		
+		//punto8. Stampa in ordine alfabetico 
+		Libretto alfabetico= new Libretto (lib); // ne faccio una copia che voglio ordinare
+		alfabetico.ordinaPerCorso();
+		System.out.println(alfabetico); 
+		
+		//in ordine di voto 
+		Libretto votiDecrescenti= new Libretto (lib); 
+		votiDecrescenti.ordinaPerVoto();
+		System.out.println(votiDecrescenti); 
+		
+		//punto9. Elimina voti bassi
+		lib.add(new Voto("Chimica",19, LocalDate.of(2018, 01, 31))); 
+		lib.ordinaPerCorso();
+		System.out.println(lib); 
+		lib.cancellaVotiScarsi();
+		System.out.println(lib); 
 	}
 	
 	// non lavoro dentro al main, ma creo un oggetto della classe stessa
