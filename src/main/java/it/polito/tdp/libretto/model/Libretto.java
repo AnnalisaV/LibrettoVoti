@@ -2,6 +2,7 @@ package it.polito.tdp.libretto.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -229,11 +230,29 @@ public class Libretto {
 	 */
 	public void ordinaPerCorso() {
 		Collections.sort(this.voti);
+		//this.voti.sort(null); questo lo ordina con il metodo di ordinamento naturale (implementazione di Comparable)
 	}
 	
 	public void ordinaPerVoto() {
 		Collections.sort(this.voti, new ComparatoreVotoPerValutazione());
 		//anche this.voti.sort(new ComparatoreVotoPerValutazione()); 
+	// Se non volessi creare una classe esterna di Comparatore (perche' poco usata o altri motivi)
+	// posso crearne na locale che senza nome viene creata per l'occorrenza e poi dimenticata 
+	/*	this.voti.sort(new Comparator<Voto>() {
+			@Override 
+			public int compare(Voto o1, Voto o2) {
+				return o2.getVoto() - o1.getVoto();
+			}
+			}
+		); //chiusa di sort
+			
+		
+			
+		*/ //ANONYMOUS INLINE CLASS
+		
+		// oppure ancora con una LAMBDA FUNCTION
+		// si definisce una classe ad un metodo 
+		/*this.voti.sort( (Voto o1,Voto o2) -> (o2.getVoto() - o1.getVoto() ) ); */ // ne' nome di classe ne' di metodo, ancora piu' compatto. Java sa perche' sort() utilizza un Comparator come parametro richiesto
 	}
 	/**
 	 * Elimina dai libretto tutti i voti minori di 24
@@ -260,6 +279,17 @@ public class Libretto {
 		// Esiste anche un modo migliore
 		this.voti.removeAll(daRimuovere); // operazione insiemistica che pensa lei all'iterazione su daRimuovere
 		
+		// invece se fatto con l'iteratore 
+		/*
+		 Iterator<Voto> iter= this.voti.iterator(); // iteratore della collection inizializzato sul primo elemnto
+		 
+		 while (iter.hasNext()){
+		 // finche ha un successivo lo analizzo (quell'elemento seccessivo)
+		  * Voto v=iter.next(); // fa avanzare l'iteratore restituendo il prox elemento
+		  * if (v.getVoto()<24)
+		  * iter.remove(); 
+		  * 
+		 */
 		
 	}
 }
